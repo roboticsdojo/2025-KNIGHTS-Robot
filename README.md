@@ -11,6 +11,7 @@ Project for [Robotics Dojo 2025](https://roboticsdojo.github.io/competition2025.
     * [Prerequisites](#preliminary)
     * [Simulation](#simulation)
     * [Real Robot](#real-robot)
+* [Simulation Demo](#simulation-demo)
     
 * [Misc.](#misc)
 * [Future](#future)
@@ -455,6 +456,45 @@ These two nodes will work together — the detector identifies the colour (blue 
 
 ### Notes
 The current implementation is a little biased toward white detection. A gentle blur before processing might help. 
+
+# Demos
+This section describes how to run the robot. Just to make sure you have all the required packages, run this:
+```bash
+sudo apt-get update && sudo apt-get install \
+    ros-humble-demo-nodes-cpp \
+    ros-humble-teleop-twist-keyboard \
+    ros-humble-xacro \
+    ros-humble-twist-mux \
+    ros-humble-robot-localization \
+    ros-humble-ros2-control \
+    ros-humble-ros2-controllers \
+    ros-humble-rplidar-ros \
+    ros-humble-ros-gz \
+    ros-humble-slam-toolbox \
+    ros-humble-navigation2 \
+    ros-humble-nav2-bringup
+```
+## Simulation Demo
+This is for autonomous navigation demo only. Two launch files are provided for running the simulation, one for the mapping phase, another for the navigation phase. Run SLAM follows:
+```bash
+cd pi-code
+colcon build --symlink-install && source install/setup.bash
+ros2 launch ./launch_sim_slam.yaml
+```
+
+in another terminal
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+Drive around until your map looks good. Then save the map using the slam_toolbox panel in RViz. The map will be saved in the directory where you ran the launch file.
+
+Then run navigation:
+```bash
+cd pi-code
+colcon build --symlink-install && source install/setup.bash
+ros2 launch ./launch_sim_nav.yaml map:=./yourMapName.yaml
+```
 
 # Misc.
 - the lidar sometimes acts up when attempting to launch. If it fails to launch even after mutliple retries, (1) try **unplug and replug** connections, i.e., usb connection on pi, usb on lidar, the lidar daughter board cables, other daughter board cable motor side and laser side, you get the idea (2) try using a different type-c cable, or different power supply altogether for the raspberry pi. This was an issue in 2024 but not 2025.

@@ -12,10 +12,10 @@ pi-code/class5s.*
 pi-code/class5.*
 pi-code/f1.*
 /als_ros
-pi-code/*.pgm
-pi-code/*.yaml
-pi-code/*.data
-pi-code/*.posegraph
+# pi-code/*.pgm
+# pi-code/*.yaml
+# pi-code/*.data
+# pi-code/*.posegraph
 pi-code/Kinights map2.zip
 pi-code/src/rdj2025_potato_disease_detection/rdj2025_potato_disease_detection/Captured_Images/
 

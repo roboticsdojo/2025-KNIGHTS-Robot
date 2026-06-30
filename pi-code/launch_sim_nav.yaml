@@ -1,0 +1,33 @@
+launch:
+  - arg:
+        name: "map"
+        description: "Map file for localization"
+
+  - include:
+      file: "$(find-pkg-share jkl)/launch/launch_sim.launch.py"
+
+#   - include:
+#       file: "$(find-pkg-share jkl)/launch/online_async_launch.py"
+  
+  - include:
+      file: "$(find-pkg-share jie_ware)/launch/lidar_loc.launch.py"
+      arg:
+        - name: "map"
+          value: "$(var map)"
+
+#   - include:
+#       file: "$(find-pkg-share jkl)/launch/localization_launch.py"
+#       arg:
+#         - name: "map"
+#           value: "$(var map)"
+
+
+  - include:
+      file: "$(find-pkg-share jkl)/launch/navigation_launch.py"
+
+  - node:
+      pkg: "rviz2"
+      exec: "rviz2"
+      name: "rviz2"
+      args: "-d $(find-pkg-share jkl)/rviz/config.rviz"
+      output: "screen"
